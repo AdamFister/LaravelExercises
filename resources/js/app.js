@@ -20,7 +20,11 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('curr-date', require('./components/curr-date.vue').default);
+Vue.component('curr-time', require('./components/curr-time.vue').default);
+Vue.component('countdown', require('./components/countdown.vue').default);
+Vue.config.devtools = true;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
