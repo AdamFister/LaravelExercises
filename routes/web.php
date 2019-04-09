@@ -22,3 +22,11 @@ Route::get('/clock', function () {
 Route::get('/countdown', function () {
     return view('countdown');
 });
+
+Route::get('/mindreader', function () {
+    return view('mindreader');
+});
+
+Route::get('/tictactoe', function () {
+    return view('tictactoe');
+});

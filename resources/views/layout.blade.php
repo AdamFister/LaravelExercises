@@ -6,9 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
     <title>@yield('title', 'Laravel Exercises')</title> <!-- default to 'Laracasts' if not specified -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="spreadsheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- CSS -->
+   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
 <body>
@@ -32,12 +38,31 @@
     </li>
   </ul>
 </nav> -->
-    <br>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+   <!-- Brand/logo -->
+   <!-- <a class="navbar-brand" href="#">Exercises</a> -->
 
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/clock">Time and Date</a></li>
-        <li><a href="/countdown">Countdown</a></li>
+     <!-- Links -->
+    <ul class="navbar-nav">
+       <li class="nav-item">
+         <a class="nav-link" href="/">Home</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/clock">Clock</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/countdown">Countdown</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/tictactoe">TicTacToe</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/mindreader">MindReader</a>
+       </li>
+     </ul>
+   </nav>
+   <br>
+
     <div class="container">
         @yield('content')
     </div>
