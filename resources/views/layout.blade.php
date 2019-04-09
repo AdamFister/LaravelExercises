@@ -59,6 +59,9 @@
        <li class="nav-item">
          <a class="nav-link" href="/mindreader">MindReader</a>
        </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/calculator">Calculator</a>
+       </li>
      </ul>
    </nav>
    <br>

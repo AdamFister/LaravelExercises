@@ -30,3 +30,7 @@ Route::get('/mindreader', function () {
 Route::get('/tictactoe', function () {
     return view('tictactoe');
 });
+
+Route::get('/calculator', function () {
+    return view('calculator');
+});

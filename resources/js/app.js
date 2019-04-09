@@ -26,6 +26,7 @@ Vue.component('curr-time', require('./components/curr-time.vue').default);
 Vue.component('countdown', require('./components/countdown.vue').default);
 Vue.component('mindreader', require('./components/mindreader.vue').default);
 Vue.component('tictactoe', require('./components/tictactoe.vue').default);
+Vue.component('calculator', require('./components/calculator.vue').default);
 Vue.config.devtools = true;
 
 /**
