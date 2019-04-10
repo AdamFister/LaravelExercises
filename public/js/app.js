@@ -1829,30 +1829,39 @@ __webpack_require__.r(__webpack_exports__);
     return {
       buttons: [["C", "", "", "/"], ["7", "8", "9", "*"], ["4", "5", "6", "-"], ["1", "2", "3", "+"], ["0", "", ".", "="]],
       num1: [],
-      num2: "",
       operator: "",
-      calDisplay: "",
-      number1: 0
+      number1: 0,
+      tileIDdisplay: "",
+      equalClicked: false
     };
   },
   methods: {
     clickedButton: function clickedButton(tileID) {
       if (tileID.tileID == "=") {
+        console.log("this.equalClicked: before: 53::: ", this.equalClicked);
+        this.equalClicked = true;
+        console.log("this.equalClicked: after: 55::: ", this.equalClicked);
         this.number1 = this.num1.join('');
-        this.calDisplay = eval(this.number1);
+        this.tileIDdisplay = eval(this.number1);
+        this.num1 = [];
+        this.num1.push(this.tileIDdisplay);
       } else if (tileID.tileID == "C") {
         this.myClear();
+      } else if (this.equalClicked == true && typeof eval(tileID.tileID) == "number") {
+        this.myClear();
+        this.tileIDdisplay = tileID.tileID;
+        this.num1.push(tileID.tileID);
       } else {
-        // this.startNum[tileID.tileID] = this.clickValue;
-        this.calDisplay += tileID.tileID; // collect numbers from buttons pressed and push them into array
+        this.tileIDdisplay = tileID.tileID; // collect numbers from buttons pressed and push them into array
 
         this.num1.push(tileID.tileID);
         console.log(this.num1);
       }
     },
     myClear: function myClear() {
+      this.equalClicked = false;
       this.num1 = [];
-      this.calDisplay = "";
+      this.tileIDdisplay = "";
       this.number1 = 0;
     }
   }
@@ -38131,7 +38140,7 @@ var render = function() {
       _c(
         "h2",
         { staticClass: "calctext", attrs: { id: "calculator-display" } },
-        [_vm._v(_vm._s(this.calDisplay))]
+        [_vm._v(_vm._s(this.tileIDdisplay))]
       ),
       _vm._v(" "),
       _c(

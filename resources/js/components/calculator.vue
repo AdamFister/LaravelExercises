@@ -3,7 +3,7 @@
     <h1>CALCULATOR</h1>
 
     <div id="calc-contain">
-      <h2 id="calculator-display" class="calctext">{{ this.calDisplay }}</h2>
+      <h2 id="calculator-display" class="calctext">{{ this.tileIDdisplay }}</h2>
 
       <div class="container">
         <div class="row" v-for="row in buttons" :key="row">
@@ -38,35 +38,47 @@ export default {
         ["0", "", ".", "="]
       ],
       num1: [],
-      num2: "",
       operator: "",
-      calDisplay: "",
-      number1: 0
+      number1: 0,
+      tileIDdisplay: "",
+      equalClicked: false
     };
   },
   methods: {
+
+
     clickedButton: function(tileID) {
 
       if (tileID.tileID == "=") {
+          console.log("this.equalClicked: before: 53::: ",this.equalClicked);
+          this.equalClicked = true;
+          console.log("this.equalClicked: after: 55::: ",this.equalClicked);
           this.number1 = this.num1.join('');
-          this.calDisplay = eval(this.number1);
+          this.tileIDdisplay = eval(this.number1);
+          this.num1 = [];
+          this.num1.push(this.tileIDdisplay);
       }
       else if (tileID.tileID == "C") {
           this.myClear();
       }
-      else {
-            // this.startNum[tileID.tileID] = this.clickValue;
-            this.calDisplay += tileID.tileID;
-
-            // collect numbers from buttons pressed and push them into array
+      else if (this.equalClicked == true && typeof eval(tileID.tileID) == "number") {
+            this.myClear();
+            this.tileIDdisplay = tileID.tileID;
             this.num1.push(tileID.tileID);
-            console.log(this.num1);
+          }
+      else {
+          this.tileIDdisplay = tileID.tileID;
+          // collect numbers from buttons pressed and push them into array
+          this.num1.push(tileID.tileID);
+          console.log(this.num1);
+          
       }
     },
 
     myClear: function() {
+      this.equalClicked = false;
       this.num1 = [];
-      this.calDisplay = "";
+      this.tileIDdisplay = "";
       this.number1 = 0;
     }
   }
