@@ -50,9 +50,7 @@ export default {
     clickedButton: function(tileID) {
 
       if (tileID.tileID == "=") {
-          console.log("this.equalClicked: before: 53::: ",this.equalClicked);
           this.equalClicked = true;
-          console.log("this.equalClicked: after: 55::: ",this.equalClicked);
           this.number1 = this.num1.join('');
           this.tileIDdisplay = eval(this.number1);
           this.num1 = [];
@@ -71,7 +69,6 @@ export default {
           // collect numbers from buttons pressed and push them into array
           this.num1.push(tileID.tileID);
           console.log(this.num1);
-          
       }
     },
 
