@@ -1,93 +1,118 @@
 <template>
-  <div id="calc-contain">
-    <p id="calculator-display" class="text">{{ this.calDisplay }}</p>
-    <div class="calc-contain">
-      <button type="button" @click="myFunction(1)">1</button>
-      <button type="button" @click="myFunction(2)">2</button>
-      <button type="button" @click="myFunction(3)">3</button>
-      <button type="button" @click="mySwitch('add')">+</button>
+  <div>
+    <h1>CALCULATOR</h1>
 
-      <button type="button" @click="myFunction(4)">4</button>
-      <button type="button" @click="myFunction(5)">5</button>
-      <button type="button" @click="myFunction(6)">6</button>
-      <button type="button" @click="mySwitch('subtract')">-</button>
+    <div id="calc-contain">
+      <h2 id="calculator-display" class="calctext">{{ this.calDisplay }}</h2>
 
-      <button type="button" @click="myFunction(7)">7</button>
-      <button type="button" @click="myFunction(8)">8</button>
-      <button type="button" @click="myFunction(9)">9</button>
-      <button type="button" @click="mySwitch('multiply')">*</button>
-
-      <button type="button" @click="myFunction(0)">0</button>
-      <button type="button" @click="mySwitch('divide')">/</button>
-      <button type="button" @click="myFunction('.')">.</button>
-      <button type="button" @click="myEqual()">=</button>
-
-      <button type="button" @click="myClear()">C</button>
+      <div class="container">
+        <div class="row" v-for="row in buttons" :key="row">
+          <div class="col" v-for="col in row" :key="col">
+            <calcbutton 
+            v-bind:tileID="col" 
+            v-on:wasClicked="clickedButton" 
+            class="calcbutton"
+            ></calcbutton>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import calcbutton from "./calcbutton";
 
 export default {
-   name: "calculator",
-   data() {
-       return {
-            num1: [],
-            operator: "",
-            calDisplay: ""
-         }
-   },
-   methods: {
-        myClear: function () {
-            this.num1 = [];
-            this.calDisplay = "";
-        },
+  name: "calculator",
+  components: {
+    calcbutton
+  },
+  data() {
+    return {
+      buttons: [
+        ["C", "", "", "/"],
+        ["7", "8", "9", "*"],
+        ["4", "5", "6", "-"],
+        ["1", "2", "3", "+"],
+        ["0", "", ".", "="]
+      ],
+      num1: [],
+      num2: "",
+      operator: "",
+      calDisplay: "",
+      number1: 0
+    };
+  },
+  methods: {
+    clickedButton: function(tileID) {
 
-        myFunction: function(x) {
+      if (tileID.tileID == "=") {
+          this.number1 = this.num1.join('');
+          this.calDisplay = eval(this.number1);
+      }
+      else if (tileID.tileID == "C") {
+          this.myClear();
+      }
+      else {
+            // this.startNum[tileID.tileID] = this.clickValue;
+            this.calDisplay += tileID.tileID;
+
             // collect numbers from buttons pressed and push them into array
-            this.calDisplay += x;
-            this.num1.push(x);
-        },
+            this.num1.push(tileID.tileID);
+            console.log(this.num1);
+      }
+    },
 
-        mySwitch: function(y) {
-            //turn array into number
-            this.number1 = Number(this.num1.join(''));
+    myClear: function() {
+      this.num1 = [];
+      this.calDisplay = "";
+      this.number1 = 0;
+    }
+  }
+};
+</script>
 
-            //show if it is addition, subtraction...
-            this.operator = y;
-
-            this.myClear();
-        },
-
-        myEqual: function() {
-            //turn array into number
-            this.number2 = Number(this.num1.join(''));
-
-            this.calDisplay = "";
-
-            switch (this.operator) {
-                case 'add':
-                    var sum = this.number1 + this.number2;
-                    break;
-                case 'subtract':
-                    var sum = this.number1 - this.number2;
-                    break;
-                case 'multiply':
-                    var sum = this.number1 * this.number2;
-                    break;
-                case 'divide':
-                    var sum = this.number1 / this.number2;
-                    break;
-                default:
-                // code block
-            }
-
-            this.calDisplay = sum;
-            this.operator = "";
-        }
-   }
+<style>
+#calc-contain {
+  position: relative;
+  width: 400px;
+  border: 2px solid black;
+  border-radius: 12px;
+  margin: 0px auto;
+  padding: 20px 20px 100px 20px;
 }
-</script>
 
-</script>
+.calcbutton {
+  background: lightGray;
+  width: 75%;
+  height: 45px;
+  font-size: 20px;
+  font-weight: 900;
+  border-radius: 7px;
+  margin-left: 13px;
+  margin-top: 10px;
+}
+
+.calcbutton:hover {
+  background-color: #230261;
+  color: white;
+}
+
+.calctext {
+  position: relative;
+  display: block;
+  width: 90%;
+  height: 45px;
+  margin: 5px auto;
+  font-size: 20px;
+  padding: 10px;
+  box-shadow: 4px 0px 12px black inset;
+  text-align: right;
+}
+
+.calcimg-fluid {
+  max-width: 100%;
+  height: auto;
+}
+</style>

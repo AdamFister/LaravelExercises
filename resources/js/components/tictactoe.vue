@@ -10,7 +10,9 @@
        <div class="container">
            <div class="row" v-for="value_r in num" :key="value_r">
                <div class="col" v-for="value_c in num" :key="value_c">
-                   <tile v-bind:tileID="value_r * 3 + value_c" ref="tile_{{ value_r * 3 + value_c }}" v-on:whoseTurn="onClickTile"></tile>
+                   <tile v-bind:tileID="value_r * 3 + value_c" 
+                   ref="tile_{{ value_r * 3 + value_c }}" 
+                   v-on:whoseTurn="onClickTile"></tile>
                </div>
            </div>
        </div>

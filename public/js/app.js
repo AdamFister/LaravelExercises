@@ -1754,9 +1754,9 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calculator.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calcbutton.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/calculator.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/calcbutton.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1767,85 +1767,93 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "calculator",
+  name: "calcbutton",
+  props: ['tileID'],
   data: function data() {
     return {
-      num1: [],
-      operator: "",
-      calDisplay: ""
+      tileID: 0
     };
   },
   methods: {
+    wasClicked: function wasClicked() {
+      // emit up to vue that a tile was clicked and pass my tileID
+      this.$emit("wasClicked", {
+        'tileID': this.tileID
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calculator.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/calculator.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _calcbutton__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./calcbutton */ "./resources/js/components/calcbutton.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "calculator",
+  components: {
+    calcbutton: _calcbutton__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      buttons: [["C", "", "", "/"], ["7", "8", "9", "*"], ["4", "5", "6", "-"], ["1", "2", "3", "+"], ["0", "", ".", "="]],
+      num1: [],
+      num2: "",
+      operator: "",
+      calDisplay: "",
+      number1: 0
+    };
+  },
+  methods: {
+    clickedButton: function clickedButton(tileID) {
+      if (tileID.tileID == "=") {
+        this.number1 = this.num1.join('');
+        this.calDisplay = eval(this.number1);
+      } else if (tileID.tileID == "C") {
+        this.myClear();
+      } else {
+        // this.startNum[tileID.tileID] = this.clickValue;
+        this.calDisplay += tileID.tileID; // collect numbers from buttons pressed and push them into array
+
+        this.num1.push(tileID.tileID);
+        console.log(this.num1);
+      }
+    },
     myClear: function myClear() {
       this.num1 = [];
       this.calDisplay = "";
-    },
-    myFunction: function myFunction(x) {
-      // collect numbers from buttons pressed and push them into array
-      this.calDisplay += x;
-      this.num1.push(x);
-    },
-    mySwitch: function mySwitch(y) {
-      //turn array into number
-      this.number1 = Number(this.num1.join('')); //show if it is addition, subtraction...
-
-      this.operator = y;
-      this.myClear();
-    },
-    myEqual: function myEqual() {
-      //turn array into number
-      this.number2 = Number(this.num1.join(''));
-      this.calDisplay = "";
-
-      switch (this.operator) {
-        case 'add':
-          var sum = this.number1 + this.number2;
-          break;
-
-        case 'subtract':
-          var sum = this.number1 - this.number2;
-          break;
-
-        case 'multiply':
-          var sum = this.number1 * this.number2;
-          break;
-
-        case 'divide':
-          var sum = this.number1 / this.number2;
-          break;
-
-        default: // code block
-
-      }
-
-      this.calDisplay = sum;
-      this.operator = "";
+      this.number1 = 0;
     }
   }
 });
@@ -2170,6 +2178,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tile__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tile */ "./resources/js/components/tile.vue");
+//
+//
 //
 //
 //
@@ -6764,6 +6774,25 @@ __webpack_require__.r(__webpack_exports__);
 
 }));
 //# sourceMappingURL=bootstrap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calculator.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/calculator.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#calc-contain {\n  position: relative;\n  width: 400px;\n  border: 2px solid black;\n  border-radius: 12px;\n  margin: 0px auto;\n  padding: 20px 20px 100px 20px;\n}\n.calcbutton {\n  background: lightGray;\n  width: 75%;\n  height: 45px;\n  font-size: 20px;\n  font-weight: 900;\n  border-radius: 7px;\n  margin-left: 13px;\n  margin-top: 10px;\n}\n.calcbutton:hover {\n  background-color: #230261;\n  color: white;\n}\n.calctext {\n  position: relative;\n  display: block;\n  width: 90%;\n  height: 45px;\n  margin: 5px auto;\n  font-size: 20px;\n  padding: 10px;\n  box-shadow: 4px 0px 12px black inset;\n  text-align: right;\n}\n.calcimg-fluid {\n  max-width: 100%;\n  height: auto;\n}\n", ""]);
+
+// exports
 
 
 /***/ }),
@@ -37404,6 +37433,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calculator.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/calculator.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./calculator.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calculator.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mindreader.vue?vue&type=style&index=0&lang=css&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/mindreader.vue?vue&type=style&index=0&lang=css& ***!
@@ -38018,6 +38077,38 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calcbutton.vue?vue&type=template&id=688772d2&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/calcbutton.vue?vue&type=template&id=688772d2& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "button",
+    {
+      staticClass: "btn btn-secondary color",
+      attrs: { type: "button" },
+      on: { click: _vm.wasClicked }
+    },
+    [_vm._v(_vm._s(_vm.tileID))]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calculator.vue?vue&type=template&id=c3d60ae6&":
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/calculator.vue?vue&type=template&id=c3d60ae6& ***!
@@ -38033,231 +38124,41 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "calc-contain" } }, [
-    _c("p", { staticClass: "text", attrs: { id: "calculator-display" } }, [
-      _vm._v(_vm._s(this.calDisplay))
-    ]),
+  return _c("div", [
+    _c("h1", [_vm._v("CALCULATOR")]),
     _vm._v(" "),
-    _c("div", { staticClass: "calc-contain" }, [
+    _c("div", { attrs: { id: "calc-contain" } }, [
       _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(1)
-            }
-          }
-        },
-        [_vm._v("1")]
+        "h2",
+        { staticClass: "calctext", attrs: { id: "calculator-display" } },
+        [_vm._v(_vm._s(this.calDisplay))]
       ),
       _vm._v(" "),
       _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(2)
-            }
-          }
-        },
-        [_vm._v("2")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(3)
-            }
-          }
-        },
-        [_vm._v("3")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.mySwitch("add")
-            }
-          }
-        },
-        [_vm._v("+")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(4)
-            }
-          }
-        },
-        [_vm._v("4")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(5)
-            }
-          }
-        },
-        [_vm._v("5")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(6)
-            }
-          }
-        },
-        [_vm._v("6")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.mySwitch("subtract")
-            }
-          }
-        },
-        [_vm._v("-")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(7)
-            }
-          }
-        },
-        [_vm._v("7")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(8)
-            }
-          }
-        },
-        [_vm._v("8")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(9)
-            }
-          }
-        },
-        [_vm._v("9")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.mySwitch("multiply")
-            }
-          }
-        },
-        [_vm._v("*")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(0)
-            }
-          }
-        },
-        [_vm._v("0")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.mySwitch("divide")
-            }
-          }
-        },
-        [_vm._v("/")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myFunction(".")
-            }
-          }
-        },
-        [_vm._v(".")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myEqual()
-            }
-          }
-        },
-        [_vm._v("=")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.myClear()
-            }
-          }
-        },
-        [_vm._v("C")]
+        "div",
+        { staticClass: "container" },
+        _vm._l(_vm.buttons, function(row) {
+          return _c(
+            "div",
+            { key: row, staticClass: "row" },
+            _vm._l(row, function(col) {
+              return _c(
+                "div",
+                { key: col, staticClass: "col" },
+                [
+                  _c("calcbutton", {
+                    staticClass: "calcbutton",
+                    attrs: { tileID: col },
+                    on: { wasClicked: _vm.clickedButton }
+                  })
+                ],
+                1
+              )
+            }),
+            0
+          )
+        }),
+        0
       )
     ])
   ])
@@ -50787,6 +50688,75 @@ if (token) {
 
 /***/ }),
 
+/***/ "./resources/js/components/calcbutton.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/calcbutton.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _calcbutton_vue_vue_type_template_id_688772d2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./calcbutton.vue?vue&type=template&id=688772d2& */ "./resources/js/components/calcbutton.vue?vue&type=template&id=688772d2&");
+/* harmony import */ var _calcbutton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./calcbutton.vue?vue&type=script&lang=js& */ "./resources/js/components/calcbutton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _calcbutton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _calcbutton_vue_vue_type_template_id_688772d2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _calcbutton_vue_vue_type_template_id_688772d2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/calcbutton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/calcbutton.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/calcbutton.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_calcbutton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./calcbutton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calcbutton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_calcbutton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/calcbutton.vue?vue&type=template&id=688772d2&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/calcbutton.vue?vue&type=template&id=688772d2& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_calcbutton_vue_vue_type_template_id_688772d2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./calcbutton.vue?vue&type=template&id=688772d2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calcbutton.vue?vue&type=template&id=688772d2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_calcbutton_vue_vue_type_template_id_688772d2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_calcbutton_vue_vue_type_template_id_688772d2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/calculator.vue":
 /*!************************************************!*\
   !*** ./resources/js/components/calculator.vue ***!
@@ -50799,7 +50769,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _calculator_vue_vue_type_template_id_c3d60ae6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./calculator.vue?vue&type=template&id=c3d60ae6& */ "./resources/js/components/calculator.vue?vue&type=template&id=c3d60ae6&");
 /* harmony import */ var _calculator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./calculator.vue?vue&type=script&lang=js& */ "./resources/js/components/calculator.vue?vue&type=script&lang=js&");
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _calculator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _calculator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _calculator_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./calculator.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/calculator.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -50807,7 +50779,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _calculator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _calculator_vue_vue_type_template_id_c3d60ae6___WEBPACK_IMPORTED_MODULE_0__["render"],
   _calculator_vue_vue_type_template_id_c3d60ae6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -50836,6 +50808,22 @@ component.options.__file = "resources/js/components/calculator.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_calculator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./calculator.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calculator.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_calculator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/calculator.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/calculator.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_calculator_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./calculator.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/calculator.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_calculator_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_calculator_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_calculator_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_calculator_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_calculator_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
