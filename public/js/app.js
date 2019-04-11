@@ -1861,7 +1861,8 @@ __webpack_require__.r(__webpack_exports__);
       opTile: "operator",
       number1: 0,
       tileIDdisplay: "",
-      equalClicked: false
+      equalClicked: false,
+      lastClicked: ""
     };
   },
   methods: {
@@ -1870,24 +1871,29 @@ __webpack_require__.r(__webpack_exports__);
       console.log("tileType: " + tileObject.tileType);
 
       if (tileObject.tileID == "=") {
+        this.lastClicked = tileObject.tileID;
         this.equalClicked = true;
         this.number1 = this.num1.join("");
         this.tileIDdisplay = eval(this.number1);
         this.num1 = [];
         this.num1.push(this.tileIDdisplay);
       } else if (tileObject.tileID == "C") {
+        this.lastClicked = tileObject.tileID;
         this.myClear();
       } else if (this.equalClicked == true && tileObject.tileType == "number") {
+        this.lastClicked = tileObject.tileID;
         this.myClear();
         this.tileIDdisplay = tileObject.tileID;
         this.num1.push(tileObject.tileID);
         this.equalClicked = false;
       } else if (this.equalClicked == true && tileObject.tileType == "operator") {
+        this.lastClicked = tileObject.tileID;
         this.tileIDdisplay += tileObject.tileID;
         this.num1.push(tileObject.tileID);
         this.equalClicked = false;
         console.log("num1= " + this.num1);
-      } else if (tileObject.tileType == "operator" && this.num1[this.num1.length - 1] == tileObject.tileID) {} else {
+      } else if (tileObject.tileType == "operator" && this.num1[this.num1.length - 1] == tileObject.tileID) {} else if (tileObject.tileType == "operator" && isNaN(this.lastClicked)) {} else {
+        this.lastClicked = tileObject.tileID;
         this.tileIDdisplay += tileObject.tileID; // collect numbers from buttons pressed and push them into array
 
         this.num1.push(tileObject.tileID);
