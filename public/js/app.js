@@ -1876,7 +1876,16 @@ __webpack_require__.r(__webpack_exports__);
         this.number1 = this.num1.join("");
         this.tileIDdisplay = eval(this.number1);
         this.num1 = [];
-        this.num1.push(this.tileIDdisplay);
+        this.num1.push(this.tileIDdisplay); //handle if operator is first button pushed
+
+        if (isNaN(this.num1[0])) {
+          console.log('NAN');
+          this.num1 = [];
+          this.lastClicked = "";
+          this.tileIDdisplay = "";
+          this.equalClicked = false;
+          console.log(this.num1);
+        }
       } else if (tileObject.tileID == "C") {
         this.lastClicked = tileObject.tileID;
         this.myClear();
@@ -1896,8 +1905,15 @@ __webpack_require__.r(__webpack_exports__);
         this.lastClicked = tileObject.tileID;
         this.tileIDdisplay += tileObject.tileID; // collect numbers from buttons pressed and push them into array
 
-        this.num1.push(tileObject.tileID);
-        console.log(this.num1);
+        this.num1.push(tileObject.tileID); //handle if operator is first button pushed
+
+        if (isNaN(this.num1[0])) {
+          console.log('NAN');
+          this.num1 = [];
+          this.lastClicked = "";
+          this.tileIDdisplay = "";
+          console.log(this.num1);
+        }
       }
     },
     myClear: function myClear() {
