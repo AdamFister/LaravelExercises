@@ -19,28 +19,8 @@
 
 <body>
 
-<!-- <nav class="navbar navbar-expand-sm bg-success navbar-dark">
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="/">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/contact">Contact</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/about">About</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/profiles">Musicians</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/profiles/create">Create Profile</a>
-    </li>
-  </ul>
-</nav> -->
+
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-   <!-- Brand/logo -->
-   <!-- <a class="navbar-brand" href="#">Exercises</a> -->
 
      <!-- Links -->
     <ul class="navbar-nav">
@@ -61,6 +41,9 @@
        </li>
        <li class="nav-item">
          <a class="nav-link" href="/calculator">Calculator</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/restaurant">Restaurant</a>
        </li>
      </ul>
    </nav>

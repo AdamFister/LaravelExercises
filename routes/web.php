@@ -34,3 +34,7 @@ Route::get('/tictactoe', function () {
 Route::get('/calculator', function () {
     return view('calculator');
 });
+
+Route::get('/restaurant', function () {
+    return view('restaurant');
+});

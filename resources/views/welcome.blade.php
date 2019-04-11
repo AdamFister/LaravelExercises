@@ -29,6 +29,7 @@
                     <a href="/tictactoe">TicTacToe</a>
                     <a href="/mindreader">Mindreader</a>
                     <a href="/calculator">Calculator</a>
+                    <a href="/restaurant">Restaurant</a>
                 </div>
             </div>
         </div>

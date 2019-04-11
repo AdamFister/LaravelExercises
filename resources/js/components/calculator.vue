@@ -26,16 +26,6 @@
             ></calcbutton>
           </div>
         </div>
-
-        <!-- <div class="row" v-for="row in buttons" :key="row">
-          <div class="col" v-for="col in row" :key="col">
-            <calcbutton 
-                v-bind:tileID="col" 
-                v-on:wasClicked="clickedButton" 
-                class="calcbutton"
-                ></calcbutton>
-          </div>
-        </div>-->
       </div>
     </div>
   </div>
@@ -50,13 +40,6 @@ export default {
   },
   data() {
     return {
-      //   buttons: [
-      //     ["C", "", "", "/"],
-      //     ["7", "8", "9", "*"],
-      //     ["4", "5", "6", "-"],
-      //     ["1", "2", "3", "+"],
-      //     ["0", "", ".", "="]
-      //   ],
       numArr: [["0", "1", "2", "3", "4"], ["5", "6", "7", "8", "9"]],
       opArr: [["", ".", "-", "/"], ["*", "+", "C", "="]],
       num1: [],
