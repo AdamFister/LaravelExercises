@@ -1887,7 +1887,7 @@ __webpack_require__.r(__webpack_exports__);
         this.num1.push(tileObject.tileID);
         this.equalClicked = false;
         console.log("num1= " + this.num1);
-      } else {
+      } else if (tileObject.tileType == "operator" && this.num1[this.num1.length - 1] == tileObject.tileID) {} else {
         this.tileIDdisplay += tileObject.tileID; // collect numbers from buttons pressed and push them into array
 
         this.num1.push(tileObject.tileID);
