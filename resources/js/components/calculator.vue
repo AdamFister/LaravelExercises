@@ -6,15 +6,36 @@
       <h2 id="calculator-display" class="calctext">{{ this.tileIDdisplay }}</h2>
 
       <div class="container">
-        <div class="row" v-for="row in buttons" :key="row">
+        <div class="row" v-for="row in numArr" :key="row">
           <div class="col" v-for="col in row" :key="col">
-            <calcbutton 
-            v-bind:tileID="col" 
-            v-on:wasClicked="clickedButton" 
-            class="calcbutton"
+            <calcbutton
+              v-bind:tileID="col"
+              v-bind:tileType="numTile"
+              v-on:wasClicked="clickedButton"
+              class="calcbutton"
             ></calcbutton>
           </div>
         </div>
+        <div class="row" v-for="row in opArr" :key="row">
+          <div class="col" v-for="col in row" :key="col">
+            <calcbutton
+              v-bind:tileID="col"
+              v-bind:tileType="opTile"
+              v-on:wasClicked="clickedButton"
+              class="calcbutton"
+            ></calcbutton>
+          </div>
+        </div>
+
+        <!-- <div class="row" v-for="row in buttons" :key="row">
+          <div class="col" v-for="col in row" :key="col">
+            <calcbutton 
+                v-bind:tileID="col" 
+                v-on:wasClicked="clickedButton" 
+                class="calcbutton"
+                ></calcbutton>
+          </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -22,7 +43,6 @@
 
 <script>
 import calcbutton from "./calcbutton";
-
 export default {
   name: "calculator",
   components: {
@@ -30,48 +50,55 @@ export default {
   },
   data() {
     return {
-      buttons: [
-        ["C", "", "", "/"],
-        ["7", "8", "9", "*"],
-        ["4", "5", "6", "-"],
-        ["1", "2", "3", "+"],
-        ["0", "", ".", "="]
-      ],
+      //   buttons: [
+      //     ["C", "", "", "/"],
+      //     ["7", "8", "9", "*"],
+      //     ["4", "5", "6", "-"],
+      //     ["1", "2", "3", "+"],
+      //     ["0", "", ".", "="]
+      //   ],
+      numArr: [["0", "1", "2", "3", "4"], ["5", "6", "7", "8", "9"]],
+      opArr: [["", ".", "-", "/"], ["*", "+", "C", "="]],
       num1: [],
-      operator: "",
+      numTile: "number",
+      opTile: "operator",
       number1: 0,
       tileIDdisplay: "",
       equalClicked: false
     };
   },
   methods: {
+    clickedButton: function(tileObject) {
+      console.log("tileID: " + tileObject.tileID);
+      console.log("tileType: " + tileObject.tileType);
 
-
-    clickedButton: function(tileID) {
-
-      if (tileID.tileID == "=") {
-          this.equalClicked = true;
-          this.number1 = this.num1.join('');
-          this.tileIDdisplay = eval(this.number1);
-          this.num1 = [];
-          this.num1.push(this.tileIDdisplay);
+      if (tileObject.tileID == "=") {
+        this.equalClicked = true;
+        this.number1 = this.num1.join("");
+        this.tileIDdisplay = eval(this.number1);
+        this.num1 = [];
+        this.num1.push(this.tileIDdisplay);
+      } else if (tileObject.tileID == "C") {
+        this.myClear();
+      } else if (this.equalClicked == true && tileObject.tileType == "number") {
+        this.myClear();
+        this.tileIDdisplay = tileObject.tileID;
+        this.num1.push(tileObject.tileID);
+        this.equalClicked = false;
+      } else if (this.equalClicked == true && tileObject.tileType == "operator") {
+        this.tileIDdisplay += tileObject.tileID;
+        this.num1.push(tileObject.tileID);
+        this.equalClicked = false;
+        console.log("num1= " + this.num1);
       }
-      else if (tileID.tileID == "C") {
-          this.myClear();
-      }
-      else if (this.equalClicked == true && typeof eval(tileID.tileID) == "number") {
-            this.myClear();
-            this.tileIDdisplay = tileID.tileID;
-            this.num1.push(tileID.tileID);
-          }
-      else {
-          this.tileIDdisplay = tileID.tileID;
-          // collect numbers from buttons pressed and push them into array
-          this.num1.push(tileID.tileID);
-          console.log(this.num1);
+      else
+          {
+        this.tileIDdisplay += tileObject.tileID;
+        // collect numbers from buttons pressed and push them into array
+        this.num1.push(tileObject.tileID);
+        console.log(this.num1);
       }
     },
-
     myClear: function() {
       this.equalClicked = false;
       this.num1 = [];
@@ -85,13 +112,12 @@ export default {
 <style>
 #calc-contain {
   position: relative;
-  width: 400px;
+  width: 500px;
   border: 2px solid black;
   border-radius: 12px;
   margin: 0px auto;
   padding: 20px 20px 100px 20px;
 }
-
 .calcbutton {
   background: lightGray;
   width: 75%;
@@ -102,12 +128,10 @@ export default {
   margin-left: 13px;
   margin-top: 10px;
 }
-
 .calcbutton:hover {
   background-color: #230261;
   color: white;
 }
-
 .calctext {
   position: relative;
   display: block;
@@ -119,7 +143,6 @@ export default {
   box-shadow: 4px 0px 12px black inset;
   text-align: right;
 }
-
 .calcimg-fluid {
   max-width: 100%;
   height: auto;

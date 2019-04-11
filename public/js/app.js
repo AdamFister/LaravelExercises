@@ -1769,17 +1769,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "calcbutton",
-  props: ['tileID'],
+  props: ['tileID', 'tileType'],
   data: function data() {
-    return {
-      tileID: 0
-    };
+    return {};
   },
   methods: {
     wasClicked: function wasClicked() {
-      // emit up to vue that a tile was clicked and pass my tileID
+      // emit up to vue that a tile was clicked and pass tileID and tileType
       this.$emit("wasClicked", {
-        'tileID': this.tileID
+        'tileID': this.tileID,
+        'tileType': this.tileType
       });
     }
   }
@@ -1819,6 +1818,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "calculator",
@@ -1827,32 +1847,50 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      buttons: [["C", "", "", "/"], ["7", "8", "9", "*"], ["4", "5", "6", "-"], ["1", "2", "3", "+"], ["0", "", ".", "="]],
+      //   buttons: [
+      //     ["C", "", "", "/"],
+      //     ["7", "8", "9", "*"],
+      //     ["4", "5", "6", "-"],
+      //     ["1", "2", "3", "+"],
+      //     ["0", "", ".", "="]
+      //   ],
+      numArr: [["0", "1", "2", "3", "4"], ["5", "6", "7", "8", "9"]],
+      opArr: [["", ".", "-", "/"], ["*", "+", "C", "="]],
       num1: [],
-      operator: "",
+      numTile: "number",
+      opTile: "operator",
       number1: 0,
       tileIDdisplay: "",
       equalClicked: false
     };
   },
   methods: {
-    clickedButton: function clickedButton(tileID) {
-      if (tileID.tileID == "=") {
+    clickedButton: function clickedButton(tileObject) {
+      console.log("tileID: " + tileObject.tileID);
+      console.log("tileType: " + tileObject.tileType);
+
+      if (tileObject.tileID == "=") {
         this.equalClicked = true;
-        this.number1 = this.num1.join('');
+        this.number1 = this.num1.join("");
         this.tileIDdisplay = eval(this.number1);
         this.num1 = [];
         this.num1.push(this.tileIDdisplay);
-      } else if (tileID.tileID == "C") {
+      } else if (tileObject.tileID == "C") {
         this.myClear();
-      } else if (this.equalClicked == true && typeof eval(tileID.tileID) == "number") {
+      } else if (this.equalClicked == true && tileObject.tileType == "number") {
         this.myClear();
-        this.tileIDdisplay = tileID.tileID;
-        this.num1.push(tileID.tileID);
+        this.tileIDdisplay = tileObject.tileID;
+        this.num1.push(tileObject.tileID);
+        this.equalClicked = false;
+      } else if (this.equalClicked == true && tileObject.tileType == "operator") {
+        this.tileIDdisplay += tileObject.tileID;
+        this.num1.push(tileObject.tileID);
+        this.equalClicked = false;
+        console.log("num1= " + this.num1);
       } else {
-        this.tileIDdisplay = tileID.tileID; // collect numbers from buttons pressed and push them into array
+        this.tileIDdisplay += tileObject.tileID; // collect numbers from buttons pressed and push them into array
 
-        this.num1.push(tileID.tileID);
+        this.num1.push(tileObject.tileID);
         console.log(this.num1);
       }
     },
@@ -6797,7 +6835,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#calc-contain {\n  position: relative;\n  width: 400px;\n  border: 2px solid black;\n  border-radius: 12px;\n  margin: 0px auto;\n  padding: 20px 20px 100px 20px;\n}\n.calcbutton {\n  background: lightGray;\n  width: 75%;\n  height: 45px;\n  font-size: 20px;\n  font-weight: 900;\n  border-radius: 7px;\n  margin-left: 13px;\n  margin-top: 10px;\n}\n.calcbutton:hover {\n  background-color: #230261;\n  color: white;\n}\n.calctext {\n  position: relative;\n  display: block;\n  width: 90%;\n  height: 45px;\n  margin: 5px auto;\n  font-size: 20px;\n  padding: 10px;\n  box-shadow: 4px 0px 12px black inset;\n  text-align: right;\n}\n.calcimg-fluid {\n  max-width: 100%;\n  height: auto;\n}\n", ""]);
+exports.push([module.i, "\n#calc-contain {\n  position: relative;\n  width: 500px;\n  border: 2px solid black;\n  border-radius: 12px;\n  margin: 0px auto;\n  padding: 20px 20px 100px 20px;\n}\n.calcbutton {\n  background: lightGray;\n  width: 75%;\n  height: 45px;\n  font-size: 20px;\n  font-weight: 900;\n  border-radius: 7px;\n  margin-left: 13px;\n  margin-top: 10px;\n}\n.calcbutton:hover {\n  background-color: #230261;\n  color: white;\n}\n.calctext {\n  position: relative;\n  display: block;\n  width: 90%;\n  height: 45px;\n  margin: 5px auto;\n  font-size: 20px;\n  padding: 10px;\n  box-shadow: 4px 0px 12px black inset;\n  text-align: right;\n}\n.calcimg-fluid {\n  max-width: 100%;\n  height: auto;\n}\n", ""]);
 
 // exports
 
@@ -38144,28 +38182,52 @@ var render = function() {
       _c(
         "div",
         { staticClass: "container" },
-        _vm._l(_vm.buttons, function(row) {
-          return _c(
-            "div",
-            { key: row, staticClass: "row" },
-            _vm._l(row, function(col) {
-              return _c(
-                "div",
-                { key: col, staticClass: "col" },
-                [
-                  _c("calcbutton", {
-                    staticClass: "calcbutton",
-                    attrs: { tileID: col },
-                    on: { wasClicked: _vm.clickedButton }
-                  })
-                ],
-                1
-              )
-            }),
-            0
-          )
-        }),
-        0
+        [
+          _vm._l(_vm.numArr, function(row) {
+            return _c(
+              "div",
+              { key: row, staticClass: "row" },
+              _vm._l(row, function(col) {
+                return _c(
+                  "div",
+                  { key: col, staticClass: "col" },
+                  [
+                    _c("calcbutton", {
+                      staticClass: "calcbutton",
+                      attrs: { tileID: col, tileType: _vm.numTile },
+                      on: { wasClicked: _vm.clickedButton }
+                    })
+                  ],
+                  1
+                )
+              }),
+              0
+            )
+          }),
+          _vm._v(" "),
+          _vm._l(_vm.opArr, function(row) {
+            return _c(
+              "div",
+              { key: row, staticClass: "row" },
+              _vm._l(row, function(col) {
+                return _c(
+                  "div",
+                  { key: col, staticClass: "col" },
+                  [
+                    _c("calcbutton", {
+                      staticClass: "calcbutton",
+                      attrs: { tileID: col, tileType: _vm.opTile },
+                      on: { wasClicked: _vm.clickedButton }
+                    })
+                  ],
+                  1
+                )
+              }),
+              0
+            )
+          })
+        ],
+        2
       )
     ])
   ])

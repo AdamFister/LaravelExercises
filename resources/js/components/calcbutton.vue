@@ -5,17 +5,22 @@
 <script>
 export default {
  name: "calcbutton",
- props: ['tileID'],
+ props: [
+     'tileID',
+     'tileType'
+        ],
  data() {
    return {
-       tileID: 0,
    };
  },
  methods: {
      wasClicked: function (){
 
-        // emit up to vue that a tile was clicked and pass my tileID
-         this.$emit("wasClicked", {'tileID': this.tileID});
+        // emit up to vue that a tile was clicked and pass tileID and tileType
+         this.$emit("wasClicked", {
+             'tileID': this.tileID,
+             'tileType': this.tileType
+             });
      }
  }
 };
