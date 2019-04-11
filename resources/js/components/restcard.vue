@@ -1,15 +1,17 @@
 <template>
-<!-- CHANGE DIV ID ARIA LABELLEDBY AND ID -->
-  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionrest">
+<!-- CHANGE DIV ID, ARIA LABELLEDBY, AND ID -->
+<div>
+  <div v-for="card in cards" :key="card" v-bind:id="card.divId" class="collapse" data-parent="#accordionrest">
     <div class="cardrest">
       <img class="card-img-top" src="http://lorempixel.com/400/200/food/" alt="food">
-      <div class="cardrest card-body" id="apps0">
-        <div class="container" v-for="item in this.menu_array" :key="item">
+      <!-- <div class="cardrest card-body" v-bind:id="card.divId2"> -->
+        <div class="container" v-for="item in menu_array" :key="item">
           <h3>{{ item }}</h3>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -18,10 +20,20 @@ export default {
   data() {
     return {
       cards: [
-        { divId: "collapseOne", aria: "headingOne", id: "apps" },
-        { divId: "collapseTwo", aria: "headingTwo", id: "main" },
-        { divId: "collapseThree", aria: "headingThree", id: "sides" },
-        { divId: "collapseFour", aria: "headingFour", id: "breakfast" }
+        { divId: "collapseOne", aria: "headingOne", divId2: "apps" },
+        { divId: "collapseTwo", aria: "headingTwo", divId2: "main" },
+        { divId: "collapseThree", aria: "headingThree", divId2: "sides" },
+        { divId: "collapseFour", aria: "headingFour", divId2: "breakfast" }
+      ],
+      ids: [
+          { id: "one" },
+          { id: "two" },
+          { id: "three" },
+          { id: "four" },
+          { id: "five" },
+          { id: "six" },
+          { id: "seven" },
+          { id: "eight" },
       ],
       menu_array: [],
       app: ""
@@ -38,7 +50,7 @@ export default {
       })
       .then(function(myJson) {
         console.log("THEN2");
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 1; i++) {
           //store menu item and get rid of quotes
           self.app = JSON.stringify(myJson.menu_items[i].description);
           self.app = self.app.slice(1, -1);
@@ -51,7 +63,7 @@ export default {
           if (self.app.charAt(self.app.length - 2) == ".") {
             self.app += "0";
           }
-
+          console.log("pushing to array");
           //push to array
           self.menu_array.push(self.app);
         }

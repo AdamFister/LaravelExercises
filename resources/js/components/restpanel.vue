@@ -14,6 +14,13 @@
         </h5>
       </div>
       <restcard></restcard>
+      <restcard></restcard>
+      <restcard></restcard>
+      <restcard></restcard>
+      <restcard></restcard>
+      <restcard></restcard>
+      <restcard></restcard>
+      <restcard></restcard>
     </div>
 </div>
 </template>
@@ -33,7 +40,6 @@ export default {
         { id: "Sides", value: "#collapseThree", value2: "collapseThree" },
         { id: "Breakfast", value: "#collapseFour", value2: "collapseFour" }
       ],
-      menu_array: [],
       app: ""
     };
   },
