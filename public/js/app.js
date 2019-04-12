@@ -2299,31 +2299,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "restcard",
   data: function data() {
     return {
-      ids: [{
-        id: "one"
-      }, {
-        id: "two"
-      }, {
-        id: "three"
-      }, {
-        id: "four"
-      }, {
-        id: "five"
-      }, {
-        id: "six"
-      }, {
-        id: "seven"
-      }, {
-        id: "eight"
-      }],
       menu_array: [],
+      image_array: [],
       myJson: null,
       app: ""
     };
@@ -2353,6 +2334,7 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (error) {
       console.log(error);
     });
+    this.image_array.push("http://lorempixel.com/4" + Math.floor(Math.random() * 90 + 10) + "/2" + Math.floor(Math.random() * 90 + 10) + "/food/");
   }
 });
 
@@ -2368,8 +2350,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _restcard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./restcard */ "./resources/js/components/restcard.vue");
-//
-//
 //
 //
 //
@@ -38782,25 +38762,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "cardrest" },
-      [
-        _c("img", {
+  return _c(
+    "div",
+    [
+      _vm._l(_vm.image_array, function(image) {
+        return _c("img", {
+          key: image,
           staticClass: "card-img-top",
-          attrs: { src: "http://lorempixel.com/400/200/food/", alt: "food" }
-        }),
-        _vm._v(" "),
-        _vm._l(_vm.menu_array, function(item) {
-          return _c("div", { key: item, staticClass: "container" }, [
-            _c("h3", [_vm._v(_vm._s(item))])
-          ])
+          attrs: { src: image, alt: "food" }
         })
-      ],
-      2
-    )
-  ])
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.menu_array, function(item) {
+        return _c("div", { key: item, staticClass: "container" }, [
+          _c("h3", [_vm._v(_vm._s(item))])
+        ])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38855,10 +38835,16 @@ var render = function() {
               staticClass: "collapse",
               attrs: { id: panel.value2, "data-parent": "#accordionrest" }
             },
-            _vm._l(8, function(n) {
-              return _c("div", { key: n }, [_c("restcard")], 1)
-            }),
-            0
+            [
+              _c(
+                "div",
+                { staticClass: "cardrest" },
+                _vm._l(8, function(n) {
+                  return _c("div", { key: n }, [_c("restcard")], 1)
+                }),
+                0
+              )
+            ]
           )
         ])
       })

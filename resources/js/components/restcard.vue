@@ -2,15 +2,12 @@
 <!-- CHANGE DIV ID, ARIA LABELLEDBY, AND ID -->
 <div>
 
-    <div class="cardrest">
-      <img class="card-img-top" src="http://lorempixel.com/400/200/food/" alt="food">
+      <img class="card-img-top" v-for="image in image_array" :key="image" :src="image" alt="food">
       <!-- <div class="cardrest card-body" v-bind:id="card.divId2"> -->
         <div class="container" v-for="item in menu_array" :key="item">
           <h3>{{ item }}</h3>
 
       </div>
-    </div>
-
   </div>
 
 </template>
@@ -20,18 +17,8 @@ export default {
   name: "restcard",
   data() {
     return {
-
-      ids: [
-          { id: "one" },
-          { id: "two" },
-          { id: "three" },
-          { id: "four" },
-          { id: "five" },
-          { id: "six" },
-          { id: "seven" },
-          { id: "eight" },
-      ],
       menu_array: [],
+      image_array: [],
       myJson: null,
       app: ""
     };
@@ -68,6 +55,9 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
-  }
+  
+    this.image_array.push("http://lorempixel.com/4" + Math.floor(Math.random() * 90 + 10) + "/2" + Math.floor(Math.random() * 90 + 10) + "/food/");
+
+  }, 
   }
 </script>
