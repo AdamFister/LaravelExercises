@@ -22,8 +22,8 @@
         <h3rest>Sunday, brunch and dinner: 11am - 8pm</h3rest>
       </h3>
       <br>
-      <div class="fillrest">
-        <img src="/img/burger-chips-dinner-70497.jpg" alt="food">
+      <div>
+        <img class="fillrest" src="/img/burger-chips-dinner-70497.jpg" alt="food">
       </div>
     </div>
 
@@ -61,7 +61,7 @@ export default {
   float: none;
   font-family: "Josefin Sans", sans-serif;
   margin-bottom: 10px;
-  color: rgb(131, 44, 131);
+  color: rgb(49, 29, 165);
 }
 
 .btnrest,
@@ -74,9 +74,9 @@ export default {
 }
 
 .fillrest {
-  display: flex;
   justify-content: center;
   align-items: center;
+  width: 80%
 }
 .fillimgrest {
   max-width: 75%;
@@ -94,14 +94,14 @@ export default {
 .h4rest {
   font-weight: bold;
   font-family: "Josefin Sans", sans-serif;
-  color: rgb(131, 44, 131);
+  color: rgb(49, 29, 165);
 }
 
 .btnrest {
   font-family: "Josefin Sans", sans-serif;
   font-weight: bold;
   font-size: 125%;
-  color: rgb(131, 44, 131);
+  color: rgb(49, 29, 165);
 }
 
 </style>

@@ -13,14 +13,16 @@
           >{{ panel.id }}</button>
         </h5>
       </div>
+
+        <div 
+        v-bind:id="panel.value2" 
+        class="collapse" 
+        data-parent="#accordionrest">
+        <div v-for="n in 8" :key="n">
       <restcard></restcard>
-      <restcard></restcard>
-      <restcard></restcard>
-      <restcard></restcard>
-      <restcard></restcard>
-      <restcard></restcard>
-      <restcard></restcard>
-      <restcard></restcard>
+      </div>
+        </div>
+
     </div>
 </div>
 </template>
@@ -40,6 +42,12 @@ export default {
         { id: "Sides", value: "#collapseThree", value2: "collapseThree" },
         { id: "Breakfast", value: "#collapseFour", value2: "collapseFour" }
       ],
+    //   cards: [
+    //     { divId: "collapseOne", aria: "headingOne", divId2: "apps" },
+    //     { divId: "collapseTwo", aria: "headingTwo", divId2: "main" },
+    //     { divId: "collapseThree", aria: "headingThree", divId2: "sides" },
+    //     { divId: "collapseFour", aria: "headingFour", divId2: "breakfast" }
+    //   ],
       app: ""
     };
   },

@@ -2301,27 +2301,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "restcard",
   data: function data() {
     return {
-      cards: [{
-        divId: "collapseOne",
-        aria: "headingOne",
-        divId2: "apps"
-      }, {
-        divId: "collapseTwo",
-        aria: "headingTwo",
-        divId2: "main"
-      }, {
-        divId: "collapseThree",
-        aria: "headingThree",
-        divId2: "sides"
-      }, {
-        divId: "collapseFour",
-        aria: "headingFour",
-        divId2: "breakfast"
-      }],
       ids: [{
         id: "one"
       }, {
@@ -2340,37 +2324,33 @@ __webpack_require__.r(__webpack_exports__);
         id: "eight"
       }],
       menu_array: [],
+      myJson: null,
       app: ""
     };
   },
-  methods: {},
+  methods: {
+    processData: function processData() {
+      //store menu item and get rid of quotes
+      this.app = JSON.stringify(this.myJson.menu_items[0].description);
+      this.app = this.app.slice(1, -1); //generate random prices
+
+      this.app += " $" + Math.round(Math.random() * 10000) / 100; //add zero to price when necessary
+
+      if (this.app.charAt(this.app.length - 2) == ".") {
+        this.app += "0";
+      } //push to array
+
+
+      this.menu_array.push(this.app);
+    }
+  },
   mounted: function mounted() {
     //generate random menu items
     var self = this;
-    fetch("https://entree-f18.herokuapp.com/v1/menu/8").then(function (response) {
-      return response.json();
-      console.log("THEN1");
-    }).then(function (myJson) {
-      console.log("THEN2");
-
-      for (var i = 0; i < 1; i++) {
-        //store menu item and get rid of quotes
-        self.app = JSON.stringify(myJson.menu_items[i].description);
-        self.app = self.app.slice(1, -1); //generate random prices
-
-        self.app += " $" + Math.round(Math.random() * 10000) / 100;
-        console.log(self.app); //add zero to price when necessary
-
-        if (self.app.charAt(self.app.length - 2) == ".") {
-          self.app += "0";
-        }
-
-        console.log("pushing to array"); //push to array
-
-        self.menu_array.push(self.app);
-      }
+    axios.get('https://cors-anywhere.herokuapp.com/' + 'https://entree-f18.herokuapp.com/v1/menu/1').then(function (response) {
+      self.myJson = response.data;
+      self.processData();
     })["catch"](function (error) {
-      console.log("ERROR");
       console.log(error);
     });
   }
@@ -2388,6 +2368,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _restcard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./restcard */ "./resources/js/components/restcard.vue");
+//
+//
 //
 //
 //
@@ -2440,6 +2422,12 @@ __webpack_require__.r(__webpack_exports__);
         value: "#collapseFour",
         value2: "collapseFour"
       }],
+      //   cards: [
+      //     { divId: "collapseOne", aria: "headingOne", divId2: "apps" },
+      //     { divId: "collapseTwo", aria: "headingTwo", divId2: "main" },
+      //     { divId: "collapseThree", aria: "headingThree", divId2: "sides" },
+      //     { divId: "collapseFour", aria: "headingFour", divId2: "breakfast" }
+      //   ],
       app: ""
     };
   },
@@ -7108,7 +7096,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.centerrest {\n  text-align: center;\n}\n.cardrest {\n  width: 400px;\n  margin: auto;\n  float: none;\n  font-family: \"Josefin Sans\", sans-serif;\n  margin-bottom: 10px;\n  color: rgb(131, 44, 131);\n}\n.btnrest,\n.h5rest {\n  text-align: center;\n}\n#accordionrest {\n  float: center;\n}\n.fillrest {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.fillimgrest {\n  max-width: 75%;\n  max-height: 75%;\n}\n.h1rest,\n.h2rest {\n  font-weight: bold;\n  font-family: \"Josefin Sans\", sans-serif;\n  color: rgb(0, 0, 0);\n}\n.h3rest,\n.h4rest {\n  font-weight: bold;\n  font-family: \"Josefin Sans\", sans-serif;\n  color: rgb(131, 44, 131);\n}\n.btnrest {\n  font-family: \"Josefin Sans\", sans-serif;\n  font-weight: bold;\n  font-size: 125%;\n  color: rgb(131, 44, 131);\n}\n\n", ""]);
+exports.push([module.i, "\n.centerrest {\n  text-align: center;\n}\n.cardrest {\n  width: 400px;\n  margin: auto;\n  float: none;\n  font-family: \"Josefin Sans\", sans-serif;\n  margin-bottom: 10px;\n  color: rgb(49, 29, 165);\n}\n.btnrest,\n.h5rest {\n  text-align: center;\n}\n#accordionrest {\n  float: center;\n}\n.fillrest {\n  justify-content: center;\n  align-items: center;\n  width: 80%\n}\n.fillimgrest {\n  max-width: 75%;\n  max-height: 75%;\n}\n.h1rest,\n.h2rest {\n  font-weight: bold;\n  font-family: \"Josefin Sans\", sans-serif;\n  color: rgb(0, 0, 0);\n}\n.h3rest,\n.h4rest {\n  font-weight: bold;\n  font-family: \"Josefin Sans\", sans-serif;\n  color: rgb(49, 29, 165);\n}\n.btnrest {\n  font-family: \"Josefin Sans\", sans-serif;\n  font-weight: bold;\n  font-size: 125%;\n  color: rgb(49, 29, 165);\n}\n\n", ""]);
 
 // exports
 
@@ -38765,8 +38753,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "fillrest" }, [
+    return _c("div", [
       _c("img", {
+        staticClass: "fillrest",
         attrs: { src: "/img/burger-chips-dinner-70497.jpg", alt: "food" }
       })
     ])
@@ -38793,42 +38782,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    _vm._l(_vm.cards, function(card) {
-      return _c(
-        "div",
-        {
-          key: card,
-          staticClass: "collapse",
-          attrs: { id: card.divId, "data-parent": "#accordionrest" }
-        },
-        [
-          _c(
-            "div",
-            { staticClass: "cardrest" },
-            [
-              _c("img", {
-                staticClass: "card-img-top",
-                attrs: {
-                  src: "http://lorempixel.com/400/200/food/",
-                  alt: "food"
-                }
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.menu_array, function(item) {
-                return _c("div", { key: item, staticClass: "container" }, [
-                  _c("h3", [_vm._v(_vm._s(item))])
-                ])
-              })
-            ],
-            2
-          )
-        ]
-      )
-    }),
-    0
-  )
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "cardrest" },
+      [
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: { src: "http://lorempixel.com/400/200/food/", alt: "food" }
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.menu_array, function(item) {
+          return _c("div", { key: item, staticClass: "container" }, [
+            _c("h3", [_vm._v(_vm._s(item))])
+          ])
+        })
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38858,46 +38830,37 @@ var render = function() {
       _c("br"),
       _vm._v(" "),
       _vm._l(_vm.panels, function(panel) {
-        return _c(
-          "div",
-          { key: panel, staticClass: "cardrest" },
-          [
-            _c("div", { staticClass: "card-header", attrs: { id: panel.id } }, [
-              _c("h5", { staticClass: "mb-0" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btnrest btn-link collapsed",
-                    attrs: {
-                      "data-toggle": "collapse",
-                      "data-target": panel.value,
-                      "aria-expanded": "false",
-                      "aria-controls": panel.value2
-                    }
-                  },
-                  [_vm._v(_vm._s(panel.id))]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("restcard"),
-            _vm._v(" "),
-            _c("restcard"),
-            _vm._v(" "),
-            _c("restcard"),
-            _vm._v(" "),
-            _c("restcard"),
-            _vm._v(" "),
-            _c("restcard"),
-            _vm._v(" "),
-            _c("restcard"),
-            _vm._v(" "),
-            _c("restcard"),
-            _vm._v(" "),
-            _c("restcard")
-          ],
-          1
-        )
+        return _c("div", { key: panel, staticClass: "cardrest" }, [
+          _c("div", { staticClass: "card-header", attrs: { id: panel.id } }, [
+            _c("h5", { staticClass: "mb-0" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btnrest btn-link collapsed",
+                  attrs: {
+                    "data-toggle": "collapse",
+                    "data-target": panel.value,
+                    "aria-expanded": "false",
+                    "aria-controls": panel.value2
+                  }
+                },
+                [_vm._v(_vm._s(panel.id))]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse",
+              attrs: { id: panel.value2, "data-parent": "#accordionrest" }
+            },
+            _vm._l(8, function(n) {
+              return _c("div", { key: n }, [_c("restcard")], 1)
+            }),
+            0
+          )
+        ])
       })
     ],
     2
@@ -51165,6 +51128,8 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
