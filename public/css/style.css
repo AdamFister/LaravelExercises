@@ -44,6 +44,10 @@ html, body {
     text-decoration: none;
     text-transform: uppercase;
  }
+
+ .links > a:hover {
+    color: blueviolet;
+ }
  
  .m-b-md {
     margin-bottom: 30px;

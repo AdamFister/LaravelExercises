@@ -38,3 +38,14 @@ Route::get('/calculator', function () {
 Route::get('/restaurant', function () {
     return view('restaurant');
 });
+
+Route::get('/todo', function () {
+    return view('todo');
+});
+
+Route::post('new', 'todoController@store');
+Route::get('all', 'todoController@index');
+Route::get('remaining', 'todoController@remaining');
+Route::get('completed', 'todoController@completed');
+Route::post('update', 'todoController@update');
+Route::post('updatecleared', 'todoController@updatecleared');

@@ -30,6 +30,7 @@
                     <a href="/mindreader">Mindreader</a>
                     <a href="/calculator">Calculator</a>
                     <a href="/restaurant">Restaurant</a>
+                    <a href="/todo">To Do List</a>
                 </div>
             </div>
         </div>
