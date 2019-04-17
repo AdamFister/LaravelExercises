@@ -43,6 +43,10 @@ Route::get('/todo', function () {
     return view('todo');
 });
 
+Route::get('/weather', function () {
+    return view('weather');
+});
+
 Route::post('new', 'todoController@store');
 Route::get('all', 'todoController@index');
 Route::get('remaining', 'todoController@remaining');

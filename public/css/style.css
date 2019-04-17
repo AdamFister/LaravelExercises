@@ -56,3 +56,81 @@ html, body {
  .todo {
     min-height: 300px;
  }
+
+ #weatherapp-display {
+   height: 50px;
+ }
+
+.weathercenter {
+ margin: auto;
+ width: 60%;
+ padding: 5px;
+ text-align: center;
+}
+
+.weathertop {
+ margin-top: 10px;
+}
+
+.weatherrow {
+ border: 1px solid black;
+ text-align: center;
+ height: 50px;
+}
+
+.weatherp {
+ text-align: center;
+}
+
+.centerrest {
+   text-align: center;
+ }
+ 
+ .cardrest {
+   width: 400px;
+   margin: auto;
+   float: none;
+   font-family: "Josefin Sans", sans-serif;
+   margin-bottom: 10px;
+   color: rgb(49, 29, 165);
+ }
+ 
+ .btnrest,
+ .h5rest {
+   text-align: center;
+ }
+ 
+ #accordionrest {
+   float: center;
+ }
+ 
+ .fillrest {
+   justify-content: center;
+   align-items: center;
+   width: 80%
+ }
+ .fillimgrest {
+   max-width: 75%;
+   max-height: 75%;
+ }
+ 
+ .h1rest,
+ .h2rest {
+   font-weight: bold;
+   font-family: "Josefin Sans", sans-serif;
+   color: rgb(0, 0, 0);
+ }
+ 
+ .h3rest,
+ .h4rest {
+   font-weight: bold;
+   font-family: "Josefin Sans", sans-serif;
+   color: rgb(49, 29, 165);
+ }
+ 
+ .btnrest {
+   font-family: "Josefin Sans", sans-serif;
+   font-weight: bold;
+   font-size: 125%;
+   color: rgb(49, 29, 165);
+ }

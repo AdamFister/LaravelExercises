@@ -48,6 +48,9 @@
        <li class="nav-item">
          <a class="nav-link" href="/todo">To Do List</a>
        </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/weather">Weather</a>
+       </li>
      </ul>
    </nav>
    <br>

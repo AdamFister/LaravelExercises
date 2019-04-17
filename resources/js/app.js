@@ -29,6 +29,7 @@ Vue.component('tictactoe', require('./components/tictactoe.vue').default);
 Vue.component('calculator', require('./components/calculator.vue').default);
 Vue.component('restaurant', require('./components/restaurant.vue').default);
 Vue.component('todo', require('./components/todo.vue').default);
+Vue.component('weather', require('./components/weather.vue').default);
 Vue.config.devtools = true;
 
 /**

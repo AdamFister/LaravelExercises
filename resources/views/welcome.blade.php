@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="/">Home</a>
+                    
                     <a href="/clock">Clock</a>
                     <a href="/countdown">Countdown</a>
                     <a href="/tictactoe">TicTacToe</a>
@@ -31,6 +31,7 @@
                     <a href="/calculator">Calculator</a>
                     <a href="/restaurant">Restaurant</a>
                     <a href="/todo">To Do List</a>
+                    <a href="/weather">Weather</a>
                 </div>
             </div>
         </div>
