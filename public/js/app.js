@@ -2623,13 +2623,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "todo",
   data: function data() {
     return {
       todotext: "",
       todos: [],
-      status: 'All'
+      status: 'All',
+      tasksLeft: 0
     };
   },
   methods: {
@@ -2643,6 +2649,15 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.todotext = "";
     },
+    updateTasksLeft: function updateTasksLeft() {
+      this.tasksLeft = 0;
+
+      for (var i = 0; i < this.todos.length; i++) {
+        if (this.todos[i].complete == false && this.todos[i].cleared == false) {
+          this.tasksLeft++;
+        }
+      }
+    },
     filterAll: function filterAll() {
       var _this2 = this;
 
@@ -2650,6 +2665,8 @@ __webpack_require__.r(__webpack_exports__);
         _this2.todos = resp.data; //url: /all to see all
 
         _this2.status = "All";
+
+        _this2.updateTasksLeft();
       });
     },
     filterTodo: function filterTodo() {
@@ -2657,7 +2674,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/remaining").then(function (resp) {
         _this3.todos = resp.data;
-        _this3.status = "Todo";
+        _this3.status = "To do";
       });
     },
     filterCompleted: function filterCompleted() {
@@ -2724,6 +2741,8 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get("/all").then(function (resp) {
       _this9.todos = resp.data;
+
+      _this9.updateTasksLeft();
     });
   }
 });
@@ -39131,106 +39150,115 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
-    _c("h1", [_vm._v("To Do")]),
-    _vm._v(" "),
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.todotext,
-          expression: "todotext"
-        }
-      ],
-      attrs: {
-        type: "text",
-        placeholder: "what needs to be done?",
-        size: "50"
-      },
-      domProps: { value: _vm.todotext },
-      on: {
-        keyup: function($event) {
-          if (
-            !$event.type.indexOf("key") &&
-            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-          ) {
-            return null
+    _c("div", { staticClass: "todo" }, [
+      _c("h1", [_vm._v("To Do")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.todotext,
+            expression: "todotext"
           }
-          return _vm.addTask($event)
+        ],
+        attrs: {
+          type: "text",
+          id: "input",
+          placeholder: "what needs to be done?",
+          size: "50"
         },
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.todotext = $event.target.value
-        }
-      }
-    }),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c("p", [_vm._v("Items left to do:")]),
-    _vm._v(" "),
-    _c(
-      "ul",
-      _vm._l(_vm.todos, function(todo) {
-        return _c("li", { key: todo.id }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: todo.complete,
-                expression: "todo.complete"
-              }
-            ],
-            staticClass: "toggle",
-            attrs: { type: "checkbox", id: '"checkbox-" + todo.id' },
-            domProps: {
-              value: todo.id,
-              checked: Array.isArray(todo.complete)
-                ? _vm._i(todo.complete, todo.id) > -1
-                : todo.complete
-            },
-            on: {
-              change: [
-                function($event) {
-                  var $$a = todo.complete,
-                    $$el = $event.target,
-                    $$c = $$el.checked ? true : false
-                  if (Array.isArray($$a)) {
-                    var $$v = todo.id,
-                      $$i = _vm._i($$a, $$v)
-                    if ($$el.checked) {
-                      $$i < 0 && _vm.$set(todo, "complete", $$a.concat([$$v]))
-                    } else {
-                      $$i > -1 &&
-                        _vm.$set(
-                          todo,
-                          "complete",
-                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                        )
-                    }
-                  } else {
-                    _vm.$set(todo, "complete", $$c)
-                  }
-                },
-                function($event) {
-                  return _vm.updateStatus(todo.id)
-                }
-              ]
+        domProps: { value: _vm.todotext },
+        on: {
+          keyup: function($event) {
+            if (
+              !$event.type.indexOf("key") &&
+              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+            ) {
+              return null
             }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: '"checkbox-" + todo.id' } }, [
-            _vm._v(_vm._s(todo.text))
-          ])
-        ])
+            return _vm.addTask($event)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.todotext = $event.target.value
+          }
+        }
       }),
-      0
-    ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("p", [_vm._v(_vm._s(this.status))]),
+      _vm._v(" "),
+      _c(
+        "ul",
+        _vm._l(_vm.todos, function(todo) {
+          return _c("li", { key: todo.id }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: todo.complete,
+                  expression: "todo.complete"
+                }
+              ],
+              staticClass: "toggle",
+              attrs: {
+                type: "checkbox",
+                id: "checkbox-" + todo.id,
+                name: "POST"
+              },
+              domProps: {
+                value: todo.id,
+                checked: Array.isArray(todo.complete)
+                  ? _vm._i(todo.complete, todo.id) > -1
+                  : todo.complete
+              },
+              on: {
+                change: [
+                  function($event) {
+                    var $$a = todo.complete,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = todo.id,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && _vm.$set(todo, "complete", $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            todo,
+                            "complete",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(todo, "complete", $$c)
+                    }
+                  },
+                  function($event) {
+                    return _vm.updateStatus(todo.id)
+                  }
+                ]
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "checkbox-" + todo.id } }, [
+              _vm._v(_vm._s(todo.text))
+            ])
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c("p", [_vm._v("Items left to do: " + _vm._s(_vm.tasksLeft))]),
     _vm._v(" "),
     _c("button", { on: { click: _vm.filterAll } }, [_vm._v("Show All")]),
     _vm._v(" "),

@@ -1,8 +1,10 @@
 <template>
   <div id="app">
+      <div class="todo">
     <h1>To Do</h1>
     <input
       type="text"
+      id="input"
       v-model="todotext"
       placeholder="what needs to be done?"
       @keyup.enter="addTask"
@@ -11,14 +13,17 @@
 
     <br>
     <br>
-    <p>Items left to do:</p>
+    <p>{{ this.status }}</p>
+    
     <ul>
       <li v-for="todo in todos" :key="todo.id">
-             <input class='toggle' type='checkbox' @change='updateStatus(todo.id)' id='"checkbox-" + todo.id'
-               :value='todo.id' v-model='todo.complete'>
-             <label for='"checkbox-" + todo.id'>{{ todo.text }}</label>
+             <input class='toggle' type='checkbox' @change='updateStatus(todo.id)' :id='"checkbox-" + todo.id'
+               :value='todo.id' v-model='todo.complete' name="POST">
+             <label :for='"checkbox-" + todo.id'>{{ todo.text }}</label>
            </li>
     </ul>
+    </div>
+    <p>Items left to do: {{ tasksLeft }}</p>
     <button @click="filterAll">Show All</button>
     <button @click="filterTodo">Show To Do</button>
     <button @click="filterCompleted">Show Completed</button>
@@ -39,6 +44,7 @@ export default {
       todotext: "",
       todos: [],
       status: 'All',
+      tasksLeft: 0
     };
   },
   methods: {
@@ -49,17 +55,27 @@ export default {
       this.todotext = "";
     },
 
+    updateTasksLeft(){
+       this.tasksLeft = 0;
+         for (var i = 0; i < this.todos.length; i++) {
+           if (this.todos[i].complete == false && this.todos[i].cleared == false  ) {
+             this.tasksLeft++;
+           }
+         }
+   },
+
     filterAll() {
       axios.get("/all").then(resp => {
         this.todos = resp.data;
         //url: /all to see all
         this.status = "All";
+        this.updateTasksLeft();
       })},
 
       filterTodo() {
       axios.get("/remaining").then(resp => {
         this.todos = resp.data;
-        this.status = "Todo";
+        this.status = "To do";
       })},
       
       filterCompleted() {
@@ -100,6 +116,7 @@ export default {
   mounted() {
     axios.get("/all").then(resp => {
       this.todos = resp.data;
+      this.updateTasksLeft();
     });
   }
 };
