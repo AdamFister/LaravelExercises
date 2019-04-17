@@ -1,0 +1,136 @@
+html, body {
+    background-color: #ffffff;
+    color: #636b6f;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
+ }
+ 
+ .full-height {
+    height: 50vh;
+ }
+ 
+ .flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+ }
+ 
+ .position-ref {
+    position: relative;
+ }
+ 
+ .top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+ }
+ 
+ .content {
+    text-align: center;
+ }
+ 
+ .title {
+    font-size: 80px;
+ }
+ 
+ .links > a {
+    color: #636b6f;
+    padding: 0 25px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+ }
+
+ .links > a:hover {
+    color: blueviolet;
+ }
+ 
+ .m-b-md {
+    margin-bottom: 30px;
+ }
+
+ .todo {
+    min-height: 300px;
+ }
+
+ #weatherapp-display {
+   height: 50px;
+ }
+
+.weathercenter {
+ margin: auto;
+ width: 60%;
+ padding: 5px;
+ text-align: center;
+}
+
+.weathertop {
+ margin-top: 10px;
+}
+
+.weatherrow {
+ border: 1px solid black;
+ text-align: center;
+ height: 50px;
+}
+
+.weatherp {
+ text-align: center;
+}
+
+.centerrest {
+   text-align: center;
+ }
+ 
+ .cardrest {
+   width: 400px;
+   margin: auto;
+   float: none;
+   font-family: "Josefin Sans", sans-serif;
+   margin-bottom: 10px;
+   color: rgb(49, 29, 165);
+ }
+ 
+ .btnrest,
+ .h5rest {
+   text-align: center;
+ }
+ 
+ #accordionrest {
+   float: center;
+ }
+ 
+ .fillrest {
+   justify-content: center;
+   align-items: center;
+   width: 80%
+ }
+ .fillimgrest {
+   max-width: 75%;
+   max-height: 75%;
+ }
+ 
+ .h1rest,
+ .h2rest {
+   font-weight: bold;
+   font-family: "Josefin Sans", sans-serif;
+   color: rgb(0, 0, 0);
+ }
+ 
+ .h3rest,
+ .h4rest {
+   font-weight: bold;
+   font-family: "Josefin Sans", sans-serif;
+   color: rgb(49, 29, 165);
+ }
+ 
+ .btnrest {
+   font-family: "Josefin Sans", sans-serif;
+   font-weight: bold;
+   font-size: 125%;
+   color: rgb(49, 29, 165);
+ }
