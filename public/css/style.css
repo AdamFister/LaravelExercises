@@ -77,7 +77,6 @@ html, body {
 }
 
 .weatherrow {
- border: 1px solid black;
  text-align: center;
  height: 50px;
 }
@@ -137,4 +136,8 @@ html, body {
    font-weight: bold;
    font-size: 125%;
    color: rgb(49, 29, 165);
+ }
+
+ .smallpic {
+    width: 100px;
  }

@@ -7,26 +7,30 @@
         
         <button class = "weathertop" @click="myFunction()">Get Weather</button>
   </div>
-  <div class="container weathercenter" style = "display:block" id="WeatherStuff">
-      <div class="container weathercenter">
+  <div class="container center" style = "display:block" id="WeatherStuff">
+    
+      <div class="container weathercenter" v-show="this.showDiv">
         <!-- <p id="Error"></p> -->
         <div class="weatherrow">
         <weatherp id="CityHere">{{ city }}</weatherp>
       </div>
-      <div class="weatherrow">
+        <div class="row">
+        <div class="col">
         <weatherp id="TempKelvinHere">{{ tempKelvinHere }}</weatherp>
-      </div>
-        <div class="weatherrow">
+        </div>
+        <div class="col">
         <weatherp id="TempFahrenheitHere">{{ tempFahrenheitHere }}</weatherp>
-      </div>
-        <div class="weatherrow">
+        </div>
+        <div class="col">
         <weatherp id="TempCelsiusHere">{{ tempCelsiusHere }}</weatherp>
+        </div>
       </div>
-        <div class="weatherrow">
+      <img id="PictureHere" class="img-fluid smallpic" :src="pictureHere">
+  <div>
+      
         <weatherp id="ConditionHere">{{ condition }}</weatherp>
       </div>
       </div>
-        <img id="PictureHere" class="img-fluid" :src="pictureHere">
         
       </div>
 
@@ -49,7 +53,9 @@ export default {
         tempFahrenheitHere: "",
         tempCelsiusHere: "",
         pictureHere: "/img/weather.jpg",
-        weatherError: ""
+        weatherError: "",
+        showDiv: false,
+        tempIcon: ""
 
     };
   },
@@ -60,6 +66,10 @@ export default {
         this.tempKelvin = JSON.stringify(this.myJson.list[0].main.temp);
         this.city = JSON.stringify(this.myJson.city.name);
         this.condition = JSON.stringify(this.myJson.list[0].weather[0].description);
+        this.tempIcon = JSON.stringify(this.myJson.list[0].weather[0].icon); 
+        this.tempIcon = this.tempIcon.slice(1, -1);
+        this.pictureHere = "http://openweathermap.org/img/w/" + this.tempIcon + ".png"
+        this.weatherError = "";
 
         this.city = this.city.slice(1, -1);
         this.condition = this.condition.slice(1, -1);
@@ -72,22 +82,16 @@ export default {
         this.tempFahrenheitHere = Math.round(this.tempFahrenheit) + "°F";
         this.tempCelsiusHere = Math.round(this.tempCelsius) + "°C";
 
-        if (this.tempFahrenheit>=50) {
-            this.pictureHere = "/img/hot.jpg";
-            this.weatherError = "";
-        } else {
-            this.pictureHere = "/img/cold.jpg";
-            this.weatherError = "";
-        }
     },
 
 
     myFunction() {
-
+        
         let self = this;
         axios
         .get('https://cors-anywhere.herokuapp.com/' + 'http://api.openweathermap.org/data/2.5/forecast?zip=' + this.zipCode + '&APPID=53f03e4e31f2a70d7b4aa1cdf081e981')
         .then(response => {
+            self.showDiv = true;
             self.myJson = response.data;
             self.processData()
         })

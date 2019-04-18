@@ -2793,6 +2793,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "weather",
   data: function data() {
@@ -2808,7 +2812,9 @@ __webpack_require__.r(__webpack_exports__);
       tempFahrenheitHere: "",
       tempCelsiusHere: "",
       pictureHere: "/img/weather.jpg",
-      weatherError: ""
+      weatherError: "",
+      showDiv: false,
+      tempIcon: ""
     };
   },
   methods: {
@@ -2816,6 +2822,10 @@ __webpack_require__.r(__webpack_exports__);
       this.tempKelvin = JSON.stringify(this.myJson.list[0].main.temp);
       this.city = JSON.stringify(this.myJson.city.name);
       this.condition = JSON.stringify(this.myJson.list[0].weather[0].description);
+      this.tempIcon = JSON.stringify(this.myJson.list[0].weather[0].icon);
+      this.tempIcon = this.tempIcon.slice(1, -1);
+      this.pictureHere = "http://openweathermap.org/img/w/" + this.tempIcon + ".png";
+      this.weatherError = "";
       this.city = this.city.slice(1, -1);
       this.condition = this.condition.slice(1, -1);
       this.tempNumKelvin = parseFloat(this.tempKelvin);
@@ -2824,18 +2834,11 @@ __webpack_require__.r(__webpack_exports__);
       this.tempKelvinHere = Math.round(this.tempNumKelvin) + " K";
       this.tempFahrenheitHere = Math.round(this.tempFahrenheit) + "°F";
       this.tempCelsiusHere = Math.round(this.tempCelsius) + "°C";
-
-      if (this.tempFahrenheit >= 50) {
-        this.pictureHere = "/img/hot.jpg";
-        this.weatherError = "";
-      } else {
-        this.pictureHere = "/img/cold.jpg";
-        this.weatherError = "";
-      }
     },
     myFunction: function myFunction() {
       var self = this;
       axios.get('https://cors-anywhere.herokuapp.com/' + 'http://api.openweathermap.org/data/2.5/forecast?zip=' + this.zipCode + '&APPID=53f03e4e31f2a70d7b4aa1cdf081e981').then(function (response) {
+        self.showDiv = true;
         self.myJson = response.data;
         self.processData();
       })["catch"](function (error) {
@@ -39407,72 +39410,87 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "container weathercenter",
+        staticClass: "container center",
         staticStyle: { display: "block" },
         attrs: { id: "WeatherStuff" }
       },
       [
-        _c("div", { staticClass: "container weathercenter" }, [
-          _c(
-            "div",
-            { staticClass: "weatherrow" },
-            [
-              _c("weatherp", { attrs: { id: "CityHere" } }, [
-                _vm._v(_vm._s(_vm.city))
-              ])
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: this.showDiv,
+                expression: "this.showDiv"
+              }
             ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "weatherrow" },
-            [
-              _c("weatherp", { attrs: { id: "TempKelvinHere" } }, [
-                _vm._v(_vm._s(_vm.tempKelvinHere))
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "weatherrow" },
-            [
-              _c("weatherp", { attrs: { id: "TempFahrenheitHere" } }, [
-                _vm._v(_vm._s(_vm.tempFahrenheitHere))
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "weatherrow" },
-            [
-              _c("weatherp", { attrs: { id: "TempCelsiusHere" } }, [
-                _vm._v(_vm._s(_vm.tempCelsiusHere))
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "weatherrow" },
-            [
-              _c("weatherp", { attrs: { id: "ConditionHere" } }, [
-                _vm._v(_vm._s(_vm.condition))
-              ])
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c("img", {
-          staticClass: "img-fluid",
-          attrs: { id: "PictureHere", src: _vm.pictureHere }
-        })
+            staticClass: "container weathercenter"
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "weatherrow" },
+              [
+                _c("weatherp", { attrs: { id: "CityHere" } }, [
+                  _vm._v(_vm._s(_vm.city))
+                ])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col" },
+                [
+                  _c("weatherp", { attrs: { id: "TempKelvinHere" } }, [
+                    _vm._v(_vm._s(_vm.tempKelvinHere))
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col" },
+                [
+                  _c("weatherp", { attrs: { id: "TempFahrenheitHere" } }, [
+                    _vm._v(_vm._s(_vm.tempFahrenheitHere))
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col" },
+                [
+                  _c("weatherp", { attrs: { id: "TempCelsiusHere" } }, [
+                    _vm._v(_vm._s(_vm.tempCelsiusHere))
+                  ])
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "img-fluid smallpic",
+              attrs: { id: "PictureHere", src: _vm.pictureHere }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("weatherp", { attrs: { id: "ConditionHere" } }, [
+                  _vm._v(_vm._s(_vm.condition))
+                ])
+              ],
+              1
+            )
+          ]
+        )
       ]
     )
   ])
