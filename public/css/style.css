@@ -1,6 +1,6 @@
 html, body {
     background-color: #ffffff;
-    color: #636b6f;
+    color: #4582a0;
     font-family: 'Nunito', sans-serif;
     font-weight: 200;
     height: 100vh;
@@ -36,7 +36,7 @@ html, body {
  }
  
  .links > a {
-    color: #636b6f;
+    color: #4582a0;
     padding: 0 25px;
     font-size: 13px;
     font-weight: 600;
@@ -46,11 +46,15 @@ html, body {
  }
 
  .links > a:hover {
-    color: blueviolet;
+    color: green;
  }
  
  .m-b-md {
     margin-bottom: 30px;
+ }
+
+ .topmargin {
+    margin-top: 100px;
  }
 
  .todo {

@@ -16,8 +16,14 @@
                     @endauth
                 </div>
             @endif
+            <div class="content topmargin">
+            <div class="links">
+                <a href="https://adamfister.github.io/" target="_blank">My website</a>
+                <a href="https://github.com/AdamFister" target="_blank">Github</a>
+                <a href="https://www.linkedin.com/in/adam-fister/" target="_blank">Linkedin</a>
+            </div>  
 
-            <div class="content">
+            
                 <div class="title m-b-md">
                     Adam Fister Portfolio
                 </div>
@@ -28,6 +34,7 @@
                     <a href="/countdown">Countdown</a>
                     <a href="/tictactoe">TicTacToe</a>
                     <a href="/mindreader">Mindreader</a>
+                    <br>
                     <a href="/calculator">Calculator</a>
                     <a href="/restaurant">Restaurant</a>
                     <a href="/todo">To-Do List</a>
