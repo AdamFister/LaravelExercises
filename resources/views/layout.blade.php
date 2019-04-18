@@ -48,7 +48,7 @@
          <a class="nav-link" href="/restaurant">Restaurant</a>
        </li>
        <li class="nav-item">
-         <a class="nav-link" href="/todo">To Do List</a>
+         <a class="nav-link" href="/todo">To-Do List</a>
        </li>
        <li class="nav-item">
          <a class="nav-link" href="/weather">Weather</a>
